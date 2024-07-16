@@ -12,3 +12,7 @@ pip freeze > requirements.txt
 
 deactivate
 ```
+
+## reference
+
+https://qiita.com/Bashi50/items/30065e8f54f7e8038323
