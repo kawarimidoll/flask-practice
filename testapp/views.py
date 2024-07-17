@@ -1,13 +1,13 @@
+from flask import render_template
 from testapp import app
+from datetime import datetime
+
+today = datetime.today()
 
 
 @app.route("/")
 def index():
-    return """
-<h1>Flask Practice</h1>
-<div><em>Hellow World!</em></div>
-<div><a href="about">about</a></div>
-"""
+    return render_template("testapp/index.html", date_string=today.strftime("%Y-%m-%d"))
 
 
 @app.route("/about")
