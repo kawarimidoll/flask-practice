@@ -43,4 +43,4 @@ def sample_form():
         # POST request
         print("sampleform POST")
         print(request.form.to_dict())
-        return f'POST request received! {request.form['data1']}'
+        return f"POST request received! {request.form['data1']}"
