@@ -12,7 +12,7 @@
   <ul>
     {% for page in data_dict.pages %}
       <li>
-        <a href="{{ page }}">{{ page }}</a>
+        <a href="{{ page.url }}">{{ page.name }}</a>
       </li>
     {% endfor %}
   </ul>
