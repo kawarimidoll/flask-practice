@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, redirect, request
 from testapp import app
 from datetime import datetime
 
@@ -23,7 +23,24 @@ def about():
     return render_template("testapp/about.html")
 
 
+@app.route("/page/")
 @app.route("/page/<page_num>")
-def page(page_num):
+def page(page_num=None):
+    if page_num is None:
+        return redirect("/page/1")
+
     data_dict = {"page_num": int(page_num)}
     return render_template("testapp/page.html", data_dict=data_dict)
+
+
+@app.get('/sampleform')
+@app.post('/sampleform')
+def sample_form():
+    if request.method == "GET":
+        print("sampleform GET")
+        return render_template("testapp/sampleform.html")
+    else:
+        # POST request
+        print("sampleform POST")
+        print(request.form.to_dict())
+        return f'POST request received! {request.form['data1']}'
