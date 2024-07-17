@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>testapp</title>
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest">
 </head>
 <body>
-{% block content %}{% endblock %}
+  <div class="container">
+    <nav class="nav">
+      <a href="about">about</a>
+      <a href="page1">page1</a>
+      <a href="page2">page2</a>
+    </nav>
+    {% block content %}{% endblock %}
+  </div>
 </body>
 </html>
