@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>testapp</title>
-</head>
-<body>
-    <h1>Flask Practice</h1>
-    <div><em>Hellow World!</em></div>
-    <div>{{ data_dict.date }}</div>
-    <h2>pages</h2>
-    <ul>
-        {% for page in data_dict.pages %}
-            <li><a href="{{ page }}">{{ page }}</a></li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Flask Practice</h1>
+<div><em>Hellow World!</em></div>
+<div>{{ data_dict.date }}</div>
+<h2>pages</h2>
+<ul>
+    {% for page in data_dict.pages %}
+        <li><a href="{{ page }}">{{ page }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
