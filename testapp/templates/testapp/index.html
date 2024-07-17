@@ -1,13 +1,16 @@
 {% extends "layout.html" %}
-
 {% block content %}
-<h1>Flask Practice</h1>
-<div><em>Hellow World!</em></div>
-<div>{{ data_dict.date }}</div>
-<h2>pages</h2>
-<ul>
+  <h1>Flask Practice</h1>
+  <div>
+    <em>Hellow World!</em>
+  </div>
+  <div>{{ data_dict.date }}</div>
+  <h2>pages</h2>
+  <ul>
     {% for page in data_dict.pages %}
-        <li><a href="{{ page }}">{{ page }}</a></li>
+      <li>
+        <a href="{{ page }}">{{ page }}</a>
+      </li>
     {% endfor %}
-</ul>
+  </ul>
 {% endblock %}
