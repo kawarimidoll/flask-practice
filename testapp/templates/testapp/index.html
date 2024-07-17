@@ -8,7 +8,12 @@
 <body>
     <h1>Flask Practice</h1>
     <div><em>Hellow World!</em></div>
-    <div>{{ date_string }}</div>
-    <div><a href="about">about</a></div>
+    <div>{{ data_dict.date }}</div>
+    <h2>pages</h2>
+    <ul>
+        {% for page in data_dict.pages %}
+            <li><a href="{{ page }}">{{ page }}</a></li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
