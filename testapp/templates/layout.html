@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>testapp</title>
     <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
   </head>
   <body>
     <div class="container">
@@ -14,7 +15,15 @@
         <a href="/about">about</a>
         <a href="/sampleform">form</a>
         <a href="/page">page</a>
+        <a href="/add_employee">add_employee</a>
       </nav>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div>
+            {% for message in messages %}<div class="card">{{ message }}</div>{% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
       {% block content %}{% endblock %}
     </div>
   </body>

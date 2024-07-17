@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for, flash
 from testapp import app
 from datetime import datetime
 
@@ -64,4 +64,5 @@ def add_amployee():
         )
         db.session.add(employee)
         db.session.commit()
+        flash("add employee")
         return redirect(url_for("index"))
