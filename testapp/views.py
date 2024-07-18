@@ -61,6 +61,28 @@ def employee_detail(id):
     return render_template("testapp/employee_detail.html", employee=employee)
 
 
+@app.route("/employees/<int:id>/edit", methods=["GET"])
+def employee_edit(id):
+    employee = Employee.query.get_or_404(id)
+    return render_template("testapp/employee_edit.html", employee=employee)
+
+
+@app.route("/employees/<int:id>/update", methods=["POST"])
+def employee_update(id):
+    employee = Employee.query.get_or_404(id)
+    form_dict = request.form
+    employee.name = form_dict.get("name")
+    employee.mail = form_dict.get("mail")
+    employee.is_remote = form_dict.get("is_remote", default=False, type=bool)
+    employee.department = form_dict.get("department")
+    employee.year = form_dict.get("year", default=0, type=int)
+
+    db.session.merge(employee)
+    db.session.commit()
+    flash("employee is updated")
+    return redirect(url_for("employee_list"))
+
+
 @app.route("/add_employee", methods=["GET", "POST"])
 def add_amployee():
     if request.method == "GET":

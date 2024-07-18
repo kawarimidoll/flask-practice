@@ -27,6 +27,7 @@
           <td>{{ employee.created_at.strftime("%Y/%m/%d %H:%M") }}</td>
           <td>
             <a href="/employees/{{ employee.id }}">show</a>
+            <a href="/employees/{{ employee.id }}/edit">edit</a>
           </td>
         </tr>
       {% endfor %}
