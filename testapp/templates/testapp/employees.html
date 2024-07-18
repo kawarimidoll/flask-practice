@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Page to show all employee</h2>
+  <ul>
+    {% for employee in employees %}
+      <li>
+        name: <a href="/employees/{{ employee.id }}">{{ employee.name }}</a> mail: {{ employee.mail }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Page to show employee detail</h2>
+  <dl>
+    <dt>id</dt>
+    <dd>
+      {{ employee.id }}
+    </dd>
+    <dt>name</dt>
+    <dd>
+      {{ employee.name }}
+    </dd>
+    <dt>mail</dt>
+    <dd>
+      {{ employee.mail }}
+    </dd>
+    <dt>is_remote</dt>
+    <dd>
+      {{ employee.is_remote }}
+    </dd>
+    <dt>department</dt>
+    <dd>
+      {{ employee.department }}
+    </dd>
+    <dt>year</dt>
+    <dd>
+      {{ employee.year }}
+    </dd>
+  </dl>
+{% endblock %}

@@ -49,6 +49,18 @@ def sample_form():
         return f"POST request received! {request.form['data1']}"
 
 
+@app.route("/employees")
+def employee_list():
+    employees = Employee.query.all()
+    return render_template("testapp/employees.html", employees=employees)
+
+
+@app.route("/employees/<int:id>")
+def employee_detail(id):
+    employee = Employee.query.get_or_404(id)
+    return render_template("testapp/employee_detail.html", employee=employee)
+
+
 @app.route("/add_employee", methods=["GET", "POST"])
 def add_amployee():
     if request.method == "GET":
