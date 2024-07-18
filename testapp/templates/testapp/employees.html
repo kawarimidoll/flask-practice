@@ -1,11 +1,35 @@
 {% extends "layout.html" %}
 {% block content %}
   <h2>Page to show all employee</h2>
-  <ul>
-    {% for employee in employees %}
-      <li>
-        name: <a href="/employees/{{ employee.id }}">{{ employee.name }}</a> mail: {{ employee.mail }}
-      </li>
-    {% endfor %}
-  </ul>
+  <table class="striped">
+    <caption>All Employees</caption>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>mail address</th>
+        <th>remote</th>
+        <th>department</th>
+        <th>year</th>
+        <th>created_at</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for employee in employees %}
+        <tr>
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.mail }}</td>
+          <td>{{ employee.is_remote }}</td>
+          <td>{{ employee.department }}</td>
+          <td>{{ employee.year }}</td>
+          <td>{{ employee.created_at.strftime("%Y/%m/%d %H:%M") }}</td>
+          <td>
+            <a href="/employees/{{ employee.id }}">show</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
