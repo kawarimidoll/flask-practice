@@ -15,7 +15,7 @@
     <ul>
       {% for city in data_dict.cities %}
         <li>
-          <a href="/vic/{{ city }}.ics">{{ city.capitalize() }}</a>
+          <a href="/vic/{{ city[0] }}.ics">{{ city[1] }}</a>
         </li>
       {% endfor %}
     </ul>
