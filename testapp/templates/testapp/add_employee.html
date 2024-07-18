@@ -2,6 +2,31 @@
 {% block content %}
   <h2>Page to add employee</h2>
   <form action="/add_employee" method="POST">
-    <input type="submit" value="add employee">
+    <fieldset>
+      <legend>Employee information</legend>
+      <p>
+        <label for="name">name</label>
+        <input name="name">
+      </p>
+      <p>
+        <label for="mail">mail address</label>
+        <input name="mail">
+      </p>
+      <p>
+        <label for="name">remote work flag</label>
+        <input type="checkbox" name="is_remote">
+      </p>
+      <p>
+        <label for="department">department</label>
+        <input name="department">
+      </p>
+      <p>
+        <label for="year">year</label>
+        <input type="number" name="year" min="0">
+      </p>
+      <p class="is-center">
+        <input type="submit" value="add employee">
+      </p>
+    </fieldset>
   </form>
 {% endblock %}

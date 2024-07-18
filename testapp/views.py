@@ -55,14 +55,19 @@ def add_amployee():
         return render_template("testapp/add_employee.html")
     else:
         # POST request
+        form_dict = request.form
+        print(form_dict)
+
         employee = Employee(
-            name="Taro",
-            mail="aaa@aa.com",
-            is_remote=False,
-            department="develop",
-            year=2,
+            name=form_dict.get("name"),
+            mail=form_dict.get("mail"),
+            is_remote=form_dict.get("is_remote", default=False, type=bool),
+            department=form_dict.get("department"),
+            year=form_dict.get("year", default=0, type=int),
         )
+
         db.session.add(employee)
         db.session.commit()
+
         flash("add employee")
         return redirect(url_for("index"))
