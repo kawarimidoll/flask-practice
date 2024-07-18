@@ -26,8 +26,12 @@
           <td>{{ employee.year }}</td>
           <td>{{ employee.created_at.strftime("%Y/%m/%d %H:%M") }}</td>
           <td>
-            <a href="/employees/{{ employee.id }}">show</a>
-            <a href="/employees/{{ employee.id }}/edit">edit</a>
+            <a class="button" href="/employees/{{ employee.id }}">show</a>
+            <a class="button secondary"href="/employees/{{ employee.id }}/edit">edit</a>
+            <form action="{{ url_for('employee_delete', id=employee.id) }}"
+                  method="POST">
+              <input class="button error" type="submit" value="delete">
+            </form>
           </td>
         </tr>
       {% endfor %}

@@ -83,6 +83,15 @@ def employee_update(id):
     return redirect(url_for("employee_list"))
 
 
+@app.route("/employees/<int:id>/delete", methods=["POST"])
+def employee_delete(id):
+    employee = Employee.query.get_or_404(id)
+    db.session.delete(employee)
+    db.session.commit()
+    flash("employee is deleted")
+    return redirect(url_for("employee_list"))
+
+
 @app.route("/add_employee", methods=["GET", "POST"])
 def add_amployee():
     if request.method == "GET":
@@ -103,5 +112,5 @@ def add_amployee():
         db.session.add(employee)
         db.session.commit()
 
-        flash("add employee")
+        flash("employee is added")
         return redirect(url_for("index"))
