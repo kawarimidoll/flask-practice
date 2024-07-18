@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h2>Page to edit employee</h2>
+  <form action="{{ url_for('employee_update', id=employee.id) }}"
+        method="POST">
+    <fieldset>
+      <legend>Employee information</legend>
+      <p>
+        <label for="name">name</label>
+        <input name="name" value="{{ employee.name }}">
+      </p>
+      <p>
+        <label for="mail">mail address</label>
+        <input name="mail" value="{{ employee.mail }}">
+      </p>
+      <p>
+        <label for="is_remote">remote work flag</label>
+        <input type="checkbox"
+               name="is_remote"
+               {% if employee.is_remote %}checked{% endif %}>
+      </p>
+      <p>
+        <label for="department">department</label>
+        <input name="department" value="{{ employee.department }}">
+      </p>
+      <p>
+        <label for="year">year</label>
+        <input type="number" name="year" min="0" value="{{ employee.year }}">
+      </p>
+      <p class="is-center">
+        <input type="submit" value="UPDATE">
+      </p>
+    </fieldset>
+  </form>
+{% endblock %}

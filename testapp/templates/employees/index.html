@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
   <h2>Page to show all employee</h2>
+  <div>
+    <a class="button primary" href="{{ url_for('employee_new') }}">add new employee</a>
+  </div>
   <table class="striped">
     <caption>All Employees</caption>
     <thead>
@@ -26,8 +29,9 @@
           <td>{{ employee.year }}</td>
           <td>{{ employee.created_at.strftime("%Y/%m/%d %H:%M") }}</td>
           <td>
-            <a class="button" href="/employees/{{ employee.id }}">show</a>
-            <a class="button secondary"href="/employees/{{ employee.id }}/edit">edit</a>
+            <a class="button" href="{{ url_for('employee_show', id=employee.id) }}">show</a>
+            <a class="button secondary"
+               href="{{ url_for('employee_edit', id=employee.id) }}">edit</a>
             <form action="{{ url_for('employee_delete', id=employee.id) }}"
                   method="POST">
               <input class="button error" type="submit" value="delete">

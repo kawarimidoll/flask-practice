@@ -50,21 +50,21 @@ def sample_form():
 
 
 @app.route("/employees")
-def employee_list():
+def employee_index():
     employees = Employee.query.all()
-    return render_template("testapp/employees.html", employees=employees)
+    return render_template("employees/index.html", employees=employees)
 
 
 @app.route("/employees/<int:id>")
-def employee_detail(id):
+def employee_show(id):
     employee = Employee.query.get_or_404(id)
-    return render_template("testapp/employee_detail.html", employee=employee)
+    return render_template("employees/show.html", employee=employee)
 
 
 @app.route("/employees/<int:id>/edit", methods=["GET"])
 def employee_edit(id):
     employee = Employee.query.get_or_404(id)
-    return render_template("testapp/employee_edit.html", employee=employee)
+    return render_template("employees/edit.html", employee=employee)
 
 
 @app.route("/employees/<int:id>/update", methods=["POST"])
@@ -80,7 +80,7 @@ def employee_update(id):
     db.session.merge(employee)
     db.session.commit()
     flash("employee is updated")
-    return redirect(url_for("employee_list"))
+    return redirect(url_for("employee_index"))
 
 
 @app.route("/employees/<int:id>/delete", methods=["POST"])
@@ -89,28 +89,28 @@ def employee_delete(id):
     db.session.delete(employee)
     db.session.commit()
     flash("employee is deleted")
-    return redirect(url_for("employee_list"))
+    return redirect(url_for("employee_index"))
 
 
-@app.route("/add_employee", methods=["GET", "POST"])
-def add_amployee():
-    if request.method == "GET":
-        return render_template("testapp/add_employee.html")
-    else:
-        # POST request
-        form_dict = request.form
-        print(form_dict)
+@app.route("/employees/new")
+def employee_new():
+    return render_template("employees/create.html")
 
-        employee = Employee(
-            name=form_dict.get("name"),
-            mail=form_dict.get("mail"),
-            is_remote=form_dict.get("is_remote", default=False, type=bool),
-            department=form_dict.get("department"),
-            year=form_dict.get("year", default=0, type=int),
-        )
 
-        db.session.add(employee)
-        db.session.commit()
+@app.route("/employees", methods=["POST"])
+def employee_create():
+    form_dict = request.form
 
-        flash("employee is added")
-        return redirect(url_for("index"))
+    employee = Employee(
+        name=form_dict.get("name"),
+        mail=form_dict.get("mail"),
+        is_remote=form_dict.get("is_remote", default=False, type=bool),
+        department=form_dict.get("department"),
+        year=form_dict.get("year", default=0, type=int),
+    )
+
+    db.session.add(employee)
+    db.session.commit()
+
+    flash("employee is added")
+    return redirect(url_for("employee_index"))
