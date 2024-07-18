@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+  <h1>Bomcal</h1>
+  <h2>How to use</h2>
+  <p>
+    To use Bomcal, simply click on the city you want to get the weather for.
+    <br>
+    This will download an .ics file that you can import into your calendar.
+    <br>
+    You can also sync the calendar with your calendar app through the URL.
+  </p>
+  <div>
+    <h2>Supported cities</h2>
+    <p>Currently, the following cities are supported:</p>
+    <ul>
+      {% for city in data_dict.cities %}
+        <li>
+          <a href="/vic/{{ city }}.ics">{{ city.capitalize() }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

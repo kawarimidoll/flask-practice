@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bomcal</title>
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest">
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav">
+        <div class="nav-left">
+          <a class="brand" href="/">Bomcal</a>
+        </div>
+        <!-- <div class="nav-right"> -->
+        <!--   <div class="tabs"> -->
+        <!--     {% for state in data_dict.states %} -->
+        <!--       <a href="/{{ state }}" -->
+        <!--          class="{% if state == data_dict.current_state %}active{% endif %}">{{ state.upper() }}</a> -->
+        <!--     {% endfor %} -->
+        <!--   </div> -->
+        <!-- </div> -->
+      </nav>
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
