@@ -1,6 +1,7 @@
+import re
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
+from datetime import datetime, timezone, timedelta
 
 
 # url = "https://www.accuweather.com/en/au/melbourne/26216/daily-weather-forecast/26216"
@@ -24,7 +25,8 @@ def extract_data(raw_html):
     # print(soup.prettify())
 
     days = soup.find_all("div", {"class": "day"})
-    today = datetime.today()
+    date_str = soup.find("p", {"class": "date"}).text
+    today = parse_issued_datetime(date_str)
     result = []
 
     for idx, d in enumerate(days):
@@ -46,6 +48,8 @@ def extract_data(raw_html):
         if alert is not None:
             description += f"\\n[ALERT]:{alert.text}"
 
+        description += f'\\n{date_str}'
+
         # print(" ".join(summary_list))
         # print(description)
         # print()
@@ -63,6 +67,30 @@ def extract_data(raw_html):
         )
 
     return result
+
+
+def parse_issued_datetime(date_str):
+    # e.g. date_str = 'Forecast issued at 5:05 am EST on Friday 19 July 2024.'
+    match = re.search(r"at (\d{1,2}:\d{2} [ap]m) ([A-Z]+) on (.*)\.$", date_str)
+    if match is None:
+        return None
+
+    time_part = match.group(1)  # '5:05 am'
+    timezone_part = "A" + match.group(2)  # 'EST'
+    date_part = match.group(3)  # 'Friday 19 July 2024'
+
+    tz_dict = {
+        "AWST": timedelta(hours=+8),
+        "ACST": timedelta(hours=+9, minutes=+30),
+        "AEST": timedelta(hours=+10),
+        "ACDT": timedelta(hours=+10, minutes=+30),
+        "AEDT": timedelta(hours=+11),
+    }
+    tzinfo = tz_dict.get(timezone_part)
+
+    return datetime.strptime(
+        f"{time_part} {date_part}", "%I:%M %p %A %d %B %Y"
+    ).replace(tzinfo=timezone(tzinfo))
 
 
 # TODO: when another state is added, timezone should be changed
@@ -87,7 +115,7 @@ END:VCALENDAR"""
 
 VEVENT_TEMPLATE = """BEGIN:VEVENT
 UID:bomcal/#STATE_PATH#/#CITY_PATH#/#CURRENT_DATE#
-DESCRIPTION:#DESCRIPTION#\\nCREATED:#CREATED#
+DESCRIPTION:#DESCRIPTION#
 URL:#URL#
 DTSTART:#CURRENT_DATE#
 DTEND:#NEXT_DATE#
@@ -115,7 +143,6 @@ def gen_ical_string(weather_data_dict_list, state, city, url):
         .replace("#CITY_PATH#", city[0])
         .replace("#CITY_NAME#", city[1])
         .replace("#URL#", url)
-        .replace("#CREATED#", datetime.today().strftime("%Y%m%d %H:%M:%S"))
     )
 
 
