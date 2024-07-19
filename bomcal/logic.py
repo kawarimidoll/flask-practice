@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 def get_bom_url(state, city):
     return f"http://www.bom.gov.au/{state}/forecasts/{city[0]}.shtml"
 
+
 def fetch_bom(url):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
@@ -118,7 +119,7 @@ def gen_ical_string(weather_data_dict_list, state, city, url):
 # state: vic
 # city: [ "phillipisland", "Phillip Island" ]
 def get_forecast(state, city):
-    url= get_bom_url(state, city)
+    url = get_bom_url(state, city)
     # print(url)
     response = fetch_bom(url)
     extracted_data = extract_data(response.text)
