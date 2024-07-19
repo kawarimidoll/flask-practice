@@ -50,6 +50,18 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
+### test
+
+```sh
+pytest
+```
+
+with print output:
+
+```sh
+pytest -s
+```
+
 ## reference
 
 https://qiita.com/Bashi50/items/30065e8f54f7e8038323
