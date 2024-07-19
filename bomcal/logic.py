@@ -82,14 +82,15 @@ END:VCALENDAR"""
 
 VEVENT_TEMPLATE = """BEGIN:VEVENT
 UID:bomcal/#STATE_PATH#/#CITY_PATH#/#CURRENT_DATE#
-DESCRIPTION:#DESCRIPTION#
+DESCRIPTION:#DESCRIPTION#\\nCREATED:#CREATED#
+URL:#URL#
 DTSTART:#CURRENT_DATE#
 DTEND:#NEXT_DATE#
 SUMMARY:#SUMMARY#
 END:VEVENT"""
 
 
-def gen_ical_string(weather_data_dict_list, state, city):
+def gen_ical_string(weather_data_dict_list, state, city, url):
     # weather_data_dict_list example
     # [{'current_date': '20240718', 'next_date': '20240719', 'summary': 'Cloudy. 20%', 'description': 'Cloudy...'}, ]
     vevent_list = []
@@ -108,6 +109,8 @@ def gen_ical_string(weather_data_dict_list, state, city):
         .replace("#STATE_PATH#", state.lower())
         .replace("#CITY_PATH#", city[0])
         .replace("#CITY_NAME#", city[1])
+        .replace("#URL#", url)
+        .replace("#CREATED#", datetime.today().strftime("%Y%m%d %H:%M:%S"))
     )
 
 
@@ -119,4 +122,4 @@ def get_forecast(state, city):
     # print(url)
     response = fetch_bom(url)
     extracted_data = extract_data(response.text)
-    return gen_ical_string(extracted_data, state, city)
+    return gen_ical_string(extracted_data, state, city, url)
