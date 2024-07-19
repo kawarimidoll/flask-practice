@@ -42,6 +42,10 @@ def extract_data(raw_html):
 
         description = d.find("p").text
 
+        alert = d.find("p", {"class": "alert"})
+        if alert is not None:
+            description += f"\\n[ALERT]:{alert.text}"
+
         # print(" ".join(summary_list))
         # print(description)
         # print()
